@@ -6,12 +6,12 @@ Zemoga Front End Development - Candidate Test v2.1
 
 ### Overview
 
-As indicated in the challenge, the different requirements were implemented as a ReactJs App, with the following features:
+As indicated in the challenge, the different requirements were implemented in a ReactJs App, with the following features:
 
 1. Grid / List Views
-2. Scrollable View for Mobile
+2. Scrollable View in Mobile
 3. Persistance and custom logic for each component
-4. State management to handle the various cards
+4. State management to handle the various celebrities
 5. Modular Styling using SASS & React
 6. Component Design for the App, with distribution of responsabilities
 
