@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import dataJson from './assets/data.json';
 import './App.scss';
@@ -13,9 +13,10 @@ import thumbsdown from './assets/img/thumbs-down.svg';
 import bgpeople from './assets/img/bg-people.png';
 import bgpeople2x from './assets/img/bg-people.@2x.png';
 
+
 function App() {
 
-  const [dataSet, setDataSet] = useState([...dataJson.data]);
+  const [dataSet, setDataSet] = useStickyState([...dataJson.data], "appData");
 
   function updateVote(id, vote, increment) {
     const newDataSet = dataSet.map(item => {
@@ -167,6 +168,22 @@ function App() {
       </div>
     </div>
   );
+}
+
+// Custom Hook to Persist in LocalStorage
+// by https://www.joshwcomeau.com/react/persisting-react-state-in-localstorage/
+
+function useStickyState(defaultValue, key) {
+  const [value, setValue] = React.useState(() => {
+    const stickyValue = window.localStorage.getItem(key);
+    return stickyValue !== null
+      ? JSON.parse(stickyValue)
+      : defaultValue;
+  });
+  React.useEffect(() => {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
+  return [value, setValue];
 }
 
 export default App;

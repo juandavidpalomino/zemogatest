@@ -6,14 +6,13 @@ import undo from '../../assets/img/undo.svg';
 
 export default function PollCard({ id, name, description, category, picture, lastUpdated, votes, updateVote }) {
 
-    const descLimit = 70;
-    const nameLimit = 30;
+    const descLimit = 170;
+    const nameLimit = 170;
 
     const [thisVote, setThisVote] = useState(0);
     const [voted, setVoted] = useState(false);
     const [lastVoted, setLastVoted] = useState(0);
 
-    const [layout, setLayout] = useState();
 
     const eyebrow = (!voted) ?
         calcDate(new Date(), new Date(lastUpdated)) + " in " + category.charAt(0).toUpperCase() + category.slice(1)
@@ -87,7 +86,7 @@ export default function PollCard({ id, name, description, category, picture, las
     return (
         <div className="poll-card" style={{
             backgroundImage: `linear-gradient(
-            0deg, rgba(0, 0, 0, 0.55) 10%, rgba(0, 0, 0, 0) 66%), url(${process.env.PUBLIC_URL}/people/${picture})`
+            0deg, rgba(0, 0, 0, 0.55) 10%, rgba(0, 0, 0, 0) 66%), url(${picture})`
         }}>
             {/* 
             <div className="description">{description}</div>
@@ -95,8 +94,18 @@ export default function PollCard({ id, name, description, category, picture, las
             
             <div className="lastUpdated">{lastUpdated}</div>
             <div className="votes">{votes.positive}</div>
-            <div className="votes">{votes.negative}</div> */}
-            <div className="picture"><img src={`${process.env.PUBLIC_URL}/people/${picture}`} style={{ width: '40px' }} alt="" /></div>
+            <div className="votes">{votes.negative}</div>  */}
+            <div className="picture">
+                <div className="picture-inner" style={{
+                    backgroundImage: `linear-gradient(90deg, #929292 0%, #929292 22%, rgb(87 87 87) 50%, rgb(139 139 139) 100%)`
+                }}>
+                {/* <div className="picture-inner" > */}
+                    <div className="picture-inner-inner" style={{
+                        backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0) 40%, #929292 99%), url(${picture})`
+                    }}></div>
+                    {/* <img src={`${process.env.PUBLIC_URL}/people/${picture}`} alt="" /> */}
+                </div>
+            </div>
             <div className="main-content">
                 <div className="first-section">
                     <div className={`thumbs-indicator ${(isPos) ? 'positive' : 'negative'}`}><img src={(isPos) ? thumbsup : thumbsdown} alt="thumbs up" /></div>
