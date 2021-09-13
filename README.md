@@ -22,9 +22,12 @@ Some additional features were implemented:
 3. Automatic Ellipsis for the parragraphs and names, in case the text is too long
 4. The "Vote Now" button is clearly dimmed when it is in "disabled" state
 5. Custom horizontal scrollbar in mobile
-6. Add custom card, with custom data
+6. Ability to add a custom celebrity, with all respective functionality and persistence
+7. Reset button to set all values to default from the JSON file
 
-This was fun. Thanks!!
+### Instructions
+
+Just clone the repo, use npm -i to install and npm start to see the project.
 
 ### Overview
 
