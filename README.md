@@ -22,7 +22,9 @@ Some additional features were implemented:
 3. Automatic Ellipsis for the parragraphs and names, in case the text is too long
 4. The "Vote Now" button is clearly dimmed when it is in "disabled" state
 5. Custom horizontal scrollbar in mobile
-6. Add custom card (in progress)
+6. Add custom card, with custom data
+
+This was fun. Thanks!!
 
 ### Overview
 

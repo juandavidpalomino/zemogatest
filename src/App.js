@@ -13,10 +13,68 @@ import thumbsdown from './assets/img/thumbs-down.svg';
 import bgpeople from './assets/img/bg-people.png';
 import bgpeople2x from './assets/img/bg-people.@2x.png';
 
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+
 
 function App() {
 
   const [dataSet, setDataSet] = useStickyState([...dataJson.data], "appData");
+
+  const MySwal = withReactContent(Swal);
+
+  function ignite() {
+
+
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      const newDataSet = [...dataSet,
+      {
+        "id": dataSet.length + 1,
+        "name": MySwal.getPopup().querySelector('#name').value,
+        "description": MySwal.getPopup().querySelector('#description').value,
+        "category": MySwal.getPopup().querySelector('#category').value,
+        "picture": MySwal.getPopup().querySelector('#picture').value,
+        "lastUpdated": MySwal.getPopup().querySelector('#updated').value,
+        "votes": {
+          "positive": Number(MySwal.getPopup().querySelector('#positive').value),
+          "negative": Number(MySwal.getPopup().querySelector('#negative').value)
+        }
+      }];
+      setDataSet(newDataSet);
+      MySwal.fire({
+        title: 'Success!',
+        text: 'A new personality has been added succesfully!',
+        icon: 'success',
+        confirmButtonText: 'Continue'
+      })
+    }
+
+    function Form() {
+      return (
+        <form onSubmit={handleSubmit} >
+          <input id="name" required type="text" class="swal2-input" placeholder="Name" />
+          <input id="description" required type="text" class="swal2-input" placeholder="Description" />
+          <input id="category" required type="text" class="swal2-input" placeholder="Category" />
+          <input id="picture" required type="text" class="swal2-input" placeholder="Picture URL" />
+          <input id="updated" required type="date" class="swal2-input" placeholder="Last Updated" />
+          <input id="positive" required type="number" min="0" class="swal2-input" placeholder="Positive Votes" />
+          <input id="negative" required type="number" min="0" class="swal2-input" placeholder="Negative Votes" />
+          <input type="submit" class="swal2-confirm swal2-styled" value="Add Celebrity" />
+        </form>
+      )
+    }
+
+    MySwal.fire({
+      title: <p>Add a new celebrity</p>,
+      html: <Form />,
+      footer: 'Copyright 2018',
+      focusConfirm: false,
+      showConfirmButton: false
+    })
+  }
 
   function updateVote(id, vote, increment) {
     const newDataSet = dataSet.map(item => {
@@ -24,13 +82,23 @@ function App() {
         return {
           ...item,
           updateVote: new Date(),
-          votes: { ...item.votes, [vote]: item.votes[vote] + increment }
+          votes: { ...item.votes, [vote]: Number(item.votes[vote]) + increment }
         }
       }
       return item;
     });
 
     setDataSet(newDataSet)
+  }
+
+  function reset() {
+    setDataSet(dataJson.data);
+
+    MySwal.fire({
+      title: <p>Success</p>,
+      text: "All data reset to defaults",
+      icon: "success"
+    }).then(() => window.location.reload(false))
   }
 
   return (
@@ -120,7 +188,7 @@ function App() {
         <main role="main">
           {/* Start: Implementation */}
           {/* <pre>{JSON.stringify(dataJson) }</pre> */}
-          <PollItems items={dataSet} updateVote={updateVote} />
+          <PollItems items={dataSet} updateVote={updateVote} reset={reset} />
           {/* End: Implementation */}
         </main>
         <aside className="banner banner-bottom" role="doc-tip" aria-label="Submit a name">
@@ -128,7 +196,7 @@ function App() {
           <div className="banner__left">
             <h2 className="banner__heading">Is there anyone else you would want us to add?</h2>
           </div>
-          <div className="banner__right">
+          <div className="banner__right" onClick={ignite}>
             <button className="banner__cta">
               Submit a name
             </button>

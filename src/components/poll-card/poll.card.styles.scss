@@ -45,6 +45,22 @@
     }
     .layout-selector {
         font-size: 15px;
+        margin-left: 14px;
+    }
+    .buttons-right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    button.resetButton {
+        background-color: white;
+        border: 1px solid #c7c7c7;
+        font-size: 15px;
+        color: #5e5e5e;
+        padding: 9px 18px;
+        border-radius: 3px;
+        cursor: pointer;
     }
 }
 

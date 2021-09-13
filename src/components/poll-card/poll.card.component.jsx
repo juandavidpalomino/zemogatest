@@ -29,9 +29,15 @@ export default function PollCard({ id, name, description, category, picture, las
     const isPos = (positives >= negatives);
 
     const totalVotes = positives + negatives;
-    const positiveString = `${Math.round(positives / totalVotes * 1000) / 10}%`;
-    const negativeString = `${Math.round(negatives / totalVotes * 1000) / 10}%`;
+    let positiveString, negativeString;
 
+    if (totalVotes == 0) {
+        positiveString = `100%`;
+        negativeString = `0%`;
+    } else {
+        positiveString = `${Math.round(positives / totalVotes * 1000) / 10}%`;
+        negativeString = `${Math.round(negatives / totalVotes * 1000) / 10}%`;
+    }
     function vote() {
         if (thisVote !== 0 && !voted) {
             updateVote(id, (thisVote > 0) ? 'positive' : 'negative', 1);
@@ -99,7 +105,7 @@ export default function PollCard({ id, name, description, category, picture, las
                 <div className="picture-inner" style={{
                     backgroundImage: `linear-gradient(90deg, #929292 0%, #929292 22%, rgb(87 87 87) 50%, rgb(139 139 139) 100%)`
                 }}>
-                {/* <div className="picture-inner" > */}
+                    {/* <div className="picture-inner" > */}
                     <div className="picture-inner-inner" style={{
                         backgroundImage: `linear-gradient(90deg, rgba(0, 0, 0, 0) 40%, #929292 99%), url(${picture})`
                     }}></div>
@@ -130,7 +136,7 @@ export default function PollCard({ id, name, description, category, picture, las
             </div>
             {/* <div className="picture"><img src={cardImage} style={{width: '40px'}} alt="" /></div> */}
             <div className="gauge-bar">
-                <div className="progress-bar positive" style={{ width: positiveString }}><img src={thumbsup} alt="thumbs up" />{positiveString} <span className="totalVotes">{positives} vote{(positives > 1) ? 's' : ''}</span></div>
+                <div className="progress-bar positive" style={{ width: positiveString }}><img src={thumbsup} alt="thumbs up" />{(totalVotes > 0) ? positiveString : "No votes yet"} <span className="totalVotes">{positives} vote{(positives > 1) ? 's' : ''}</span></div>
                 <div className="progress-bar negative" style={{ width: negativeString }}><img src={thumbsdown} alt="thumbs up" />{negativeString}<span className="totalVotes">{negatives} vote{(negatives > 1) ? 's' : ''}</span></div>
             </div>
         </div>

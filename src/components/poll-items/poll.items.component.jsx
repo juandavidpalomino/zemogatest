@@ -3,10 +3,9 @@ import PollCard from '../poll-card/poll.card.component'
 import './poll.items.styles.scss'
 import Select from 'react-select'
 
-
 // import update from 'immutability-helper';
 
-export default function PollItems({ items, updateVote }) {
+export default function PollItems({ items, updateVote, reset }) {
 
     const [layout, setLayout] = useState({ value: 'list', label: 'List View' });
 
@@ -23,14 +22,18 @@ export default function PollItems({ items, updateVote }) {
         <div className="poll-content">
             <div className="poll-header">
                 <h2>Previous Rulings</h2>
-                <div className="layout-selector" style={{ width: '130px', zIndex: 1000 }}>
-                    <Select
-                        options={options}
-                        value={layout}
-                        onChange={option => handleChange(option)}
-                        defaultValue={{ value: 'list', label: 'List View' }}
-                    />
+                <div className="buttons-right">
+                    <button onClick={reset} className="resetButton">Reset</button>
+                    <div className="layout-selector" style={{ width: '130px', zIndex: 1000 }}>
+                        <Select
+                            options={options}
+                            value={layout}
+                            onChange={option => handleChange(option)}
+                            defaultValue={{ value: 'list', label: 'List View' }}
+                        />
+                    </div>
                 </div>
+
             </div>
             <div className="poll-main-wrapper">
                 <div className={"poll-wrapper " + layout.value}>
