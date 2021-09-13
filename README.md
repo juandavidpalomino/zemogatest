@@ -27,7 +27,13 @@ Some additional features were implemented:
 
 ### Instructions
 
-Just clone the repo, use npm -i to install and npm start to see the project.
+1. Clone the repo
+2. Use 'npm -i' to install dependencies
+3. Run with command 'npm start'
+
+Thanks!! 👋👋
+
+Juan Palomino
 
 ### Overview
 
